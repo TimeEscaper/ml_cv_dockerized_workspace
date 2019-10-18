@@ -22,9 +22,9 @@ RUN chmod a+rwx /home/ubuntu/
 #RUN echo `pwd`
 
 # Anaconda installing
-RUN wget https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh
-RUN bash Anaconda3-5.0.1-Linux-x86_64.sh -b
-RUN rm Anaconda3-5.0.1-Linux-x86_64.sh
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
+RUN bash Anaconda3-2019.10-Linux-x86_64.sh -b
+RUN rm Anaconda3-2019.10-Linux-x86_64.sh
 
 # Set path to conda
 #ENV PATH /root/anaconda3/bin:$PATH
@@ -32,9 +32,12 @@ ENV PATH /home/ubuntu/anaconda3/bin:$PATH
 
 # Updating Anaconda packages
 # TODO: Fix
-# RUN conda update conda
-# RUN conda update anaconda
-# RUN conda update --all
+RUN conda update conda -y
+#RUN conda update anaconda -y
+RUN conda update --all -y
+
+# Install additional packages
+RUN conda install -c conda-forge xgboost -y
 
 # Configuring access to Jupyter
 RUN mkdir /home/ubuntu/workspace
