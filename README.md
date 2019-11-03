@@ -8,7 +8,7 @@ Initially, the idea of "dockerized workspace" was inspired by the dependencies a
 
 ## Usage
 
-Script [**workspace.sh**](https://github.com/TimeEscaper/ml_cv_dockerized_workspace/blob/master/workspace.sh) is used to simplify operations with Docker image and container.
+Script [workspace.sh](https://github.com/TimeEscaper/ml_cv_dockerized_workspace/blob/master/workspace.sh) is used to simplify operations with Docker image and container.
 
 To build workspace (Docker image) use command:
 ```bash
@@ -24,3 +24,5 @@ To run workspace (Dokcer container), use command:
 ./workspace.sh run
 ```
 Directory **~/ml_cv_workspace** will be mounted to the container in read/write mode and used as a notebook directory for Jupyter. You should store notebooks and other filed that you want to work with in this directory.
+
+Jupyter will be accessed at [localhost:8888](http://localhost:8888).

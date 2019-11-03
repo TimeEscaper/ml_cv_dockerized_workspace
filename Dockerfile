@@ -29,9 +29,8 @@ RUN rm Anaconda3-2019.10-Linux-x86_64.sh
 ENV PATH /home/ubuntu/anaconda3/bin:$PATH
 
 # Updating Anaconda packages
-# TODO: Fix
 RUN conda update conda -y
-#RUN conda update anaconda -y
+RUN conda update anaconda -y
 RUN conda update --all -y
 
 # Install additional packages
