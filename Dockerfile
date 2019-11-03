@@ -51,9 +51,11 @@ RUN conda install -c cvxgrp cvxpy -y
 
 
 # Configuring access to Jupyter
+ARG password
 RUN mkdir /home/ubuntu/workspace
 RUN jupyter notebook --generate-config --allow-root
-RUN echo "c.NotebookApp.password = u'sha1:6a3f528eec40:6e896b6e4828f525a6e20e5411cd1c8075d68619'" >> /home/ubuntu/.jupyter/jupyter_notebook_config.py
+RUN echo $(python3 -c "from IPython.lib import passwd; print(passwd(\"${password}\"));")
+RUN echo "c.NotebookApp.password = u\"$(python3 -c "from IPython.lib import passwd; print(passwd(\"${password}\"));")\"" >> /home/ubuntu/.jupyter/jupyter_notebook_config.py
 
 # Jupyter listens port: 8888
 EXPOSE 8888
