@@ -19,15 +19,13 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER ubuntu
 WORKDIR /home/ubuntu/
 RUN chmod a+rwx /home/ubuntu/
-#RUN echo `pwd`
 
-# Anaconda installing
+# Anaconda installation
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
 RUN bash Anaconda3-2019.10-Linux-x86_64.sh -b
 RUN rm Anaconda3-2019.10-Linux-x86_64.sh
 
 # Set path to conda
-#ENV PATH /root/anaconda3/bin:$PATH
 ENV PATH /home/ubuntu/anaconda3/bin:$PATH
 
 # Updating Anaconda packages
@@ -39,6 +37,7 @@ RUN conda update --all -y
 # Install additional packages
 
 # XGBoost
+# TODO: Build from sources
 RUN conda install -c conda-forge xgboost -y
 
 # CatBoost
@@ -54,7 +53,6 @@ RUN conda install -c cvxgrp cvxpy -y
 ARG password
 RUN mkdir /home/ubuntu/workspace
 RUN jupyter notebook --generate-config --allow-root
-RUN echo $(python3 -c "from IPython.lib import passwd; print(passwd(\"${password}\"));")
 RUN echo "c.NotebookApp.password = u\"$(python3 -c "from IPython.lib import passwd; print(passwd(\"${password}\"));")\"" >> /home/ubuntu/.jupyter/jupyter_notebook_config.py
 
 # Jupyter listens port: 8888
