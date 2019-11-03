@@ -37,9 +37,18 @@ RUN conda update conda -y
 RUN conda update --all -y
 
 # Install additional packages
+
+# XGBoost
 RUN conda install -c conda-forge xgboost -y
+
+# CatBoost
 RUN conda config --add channels conda-forge
 RUN conda install catboost
+
+# CVXPY
+RUN conda install -c conda-forge lapack -y
+RUN conda install -c cvxgrp cvxpy -y
+
 
 # Configuring access to Jupyter
 RUN mkdir /home/ubuntu/workspace
