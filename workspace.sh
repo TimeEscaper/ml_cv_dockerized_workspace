@@ -9,6 +9,8 @@ function show_help()
     printf "./workspace.sh build\n"
     printf "Builds workspace Docker image. Asks password for Jupyter before building the image.\nParameters:\n\n"
     printf "    --default-psw   Suppresses password entering step by setting it to default value 'root'.\n\n\n"
+    printf "./workspace.sh enable\n"
+    printf "Runs workspace Docker container in detach mode and sets its restart policy (unless-stopped).\n\n"
     printf "\n"
 }
 
@@ -19,7 +21,7 @@ case "$1" in
         if [ ! -d "$directory" ]; then
             mkdir $directory
         fi
-        docker run --rm -p 8888:8888 -v $directory:/home/ubuntu/workspace ml_cv_dockerized_workspace
+        docker run --rm --gpus all -p 8888:8888 -v $directory:/home/ubuntu/workspace ml_cv_dockerized_workspace
         ;;
 
     "build" )
@@ -29,7 +31,15 @@ case "$1" in
             read -s password
             echo
         fi
-        docker build -t ml_cv_dockerized_workspace --build-arg password=$password .
+        docker build --rm -t ml_cv_dockerized_workspace --build-arg password=$password .
+        ;;
+
+    "enable" )
+        directory=$HOME/ml_cv_workspace
+        if [ ! -d "$directory" ]; then
+            mkdir $directory
+        fi
+        docker run --rm --restart unless-stopped --gpus all -d -p 8888:8888 -v $directory:/home/ubuntu/workspace ml_cv_dockerized_workspace
         ;;
 
     "help" )

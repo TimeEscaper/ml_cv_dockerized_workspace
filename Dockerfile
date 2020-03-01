@@ -1,5 +1,5 @@
 # Inherit from image: https://github.com/Borda/docker_python-opencv-ffmpeg
-FROM borda/docker_python-opencv-ffmpeg
+FROM borda/docker_python-opencv-ffmpeg:py36-cuda
 
 # For the next steps thanks to http://www.science.smith.edu/dftwiki/index.php/Tutorial:_Docker_Anaconda_Python_--_4
 # Updating Ubuntu packages
@@ -47,6 +47,13 @@ RUN conda install catboost
 RUN conda install -c conda-forge lapack -y
 RUN conda install -c cvxgrp cvxpy -y
 
+# PyTorch
+RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch -y
+
+# OpenAI Gym
+RUN pip3 install gym --user
+
+# TODO: Fix OpenCV installation
 
 # Configuring access to Jupyter
 ARG password
