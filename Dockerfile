@@ -53,6 +53,15 @@ RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch -y
 # OpenAI Gym
 RUN pip3 install gym --user
 
+# Google Drive Downloader
+RUN pip install googledrivedownloader --user
+
+# Plotly
+RUN conda install -c plotly plotly -y
+
+# Colorlover
+RUN conda install -c conda-forge colorlover -y
+
 # TODO: Fix OpenCV installation
 
 # Configuring access to Jupyter
