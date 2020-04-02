@@ -50,6 +50,8 @@ RUN conda install -c cvxgrp cvxpy -y
 # PyTorch
 RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch -y
 
+RUN conda install -c ostrokach-forge torch-geometric -y
+
 # OpenAI Gym
 RUN pip3 install gym --user
 
@@ -61,6 +63,9 @@ RUN conda install -c plotly plotly -y
 
 # Colorlover
 RUN conda install -c conda-forge colorlover -y
+
+# Giotto-TDA
+RUN pip install -U giotto-tda
 
 # TODO: Fix OpenCV installation
 
