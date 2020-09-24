@@ -17,11 +17,21 @@ function show_help()
 case "$1" in
 
     "run" )
-        directory=$HOME/ml_cv_workspace
-        if [ ! -d "$directory" ]; then
-            mkdir $directory
+        # directory=$HOME/ml_cv_workspace
+        directory=""
+        if [[ "$2" == "dir" ]]; then
+            if [ -z "$3" ] 
+                then
+                    directory=$HOME/ml_cv_workspace
+                else
+                    directory="$3"
+            fi
+            if [ ! -d "$directory" ]; then
+                mkdir $directory
+            fi
         fi
-        docker run --rm --gpus all -p 8888:8888 -v $directory:/home/ubuntu/workspace ml_cv_dockerized_workspace
+        
+        docker run --rm --gpus all -p 8888:8888 -v $directory:/home/ubuntu/workspace:rw ml_cv_dockerized_workspace
         ;;
 
     "build" )
